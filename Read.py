@@ -1,6 +1,6 @@
 data = []
 count = 0
-with open('reviews.txt', 'r') as f:
+with open('reviews.txt', 'r',encoding='utf-8') as f:
     for line in f:
         data.append(line)
         count += 1
@@ -15,6 +15,39 @@ print('留言的平均長度是', sum_len/len(data))
 
 new = []
 for d in data:
-	if len(d) < 100:
-		new.append(d)
+    if len(d) < 100:
+        new.append(d)
 print('一共有', len(new), '筆留言長度小於100')
+
+good = []
+for d in data:
+    if 'good' in d:
+        good.append(d)
+print('一共有', len(good), '筆留言提到good')
+
+# 文字計數
+wc = {} # word_count
+for d in data:
+    words = d.split()
+    for word in words:
+        if word in wc:
+            wc[word] += 1
+        else:
+            wc[word] = 1
+for word in wc:
+    if wc[word] > 1000000:
+        print(word, wc[word])
+print(len(wc))
+
+while True:
+	word = input('請問你想查甚麼字: ')
+	if word == 'q':
+		break
+	if word in wc:
+	    print(word, '出現過的次數為: ', wc[word])
+	else:
+		print('這個子沒有出現過喔!')
+print('感謝使用本查詢功能')
+
+
+
